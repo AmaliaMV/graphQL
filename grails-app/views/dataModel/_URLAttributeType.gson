@@ -1,0 +1,14 @@
+package dataModel
+
+import core.model.URLAttributeType
+
+inherits template: "/dataModel/attributeType", model:[attributeType: this.URLAttributeType]
+
+model {
+    URLAttributeType URLAttributeType
+}
+
+json {
+    defaultValue this.URLAttributeType.defaultValue
+    length this.URLAttributeType.length
+}

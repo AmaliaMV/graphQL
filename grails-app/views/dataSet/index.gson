@@ -1,0 +1,7 @@
+import core.DataSet
+
+model {
+    List<DataSet> dataSetList
+}
+
+json tmpl.dataSet(dataSetList)

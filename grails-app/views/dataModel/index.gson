@@ -1,0 +1,7 @@
+import core.model.DataModel
+
+model {
+    List<DataModel> dataModelList
+}
+
+json tmpl.dataModel(dataModelList)

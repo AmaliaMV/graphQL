@@ -1,0 +1,27 @@
+import core.DataSet
+import core.model.Attribute
+import util.DataSetRender
+import util.DateFormat
+
+model {
+    DataSet dataSet
+}
+
+json {
+    "class" dataSet.class.simpleName
+    id dataSet.id?.toString()
+    displayValue dataSet.displayValue
+    dataModel tmpl.'/dataModel/dataModel_minimal'(dataModel: dataSet.dataModel)
+
+    dateCreated DateFormat.format(dataSet.dateCreated)
+    lastUpdated DateFormat.format(dataSet.lastUpdated)
+    operations {
+        edit true
+        delete false
+        reindex false
+    }
+
+    DataSetRender.getAttributesFromDataSet(dataSet).each { Map<String, Attribute> attributeMap ->
+        "${attributeMap.keySet().first()}" DataSetRender.renderAttribute(dataSet, attributeMap)
+    }
+}

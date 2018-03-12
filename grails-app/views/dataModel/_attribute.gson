@@ -1,0 +1,27 @@
+import core.model.Attribute
+import util.DateFormat
+
+model {
+    Attribute attribute
+}
+
+json {
+    "class" Attribute.simpleName
+    "id" attribute.id?.toString()
+    name attribute.name
+    title attribute.title
+    type g.render(attribute.type)
+
+    order attribute.order
+    helpText attribute.helpText
+    operations {
+        edit true
+        delete true
+        reindex false
+    }
+
+    description attribute.description
+    dateCreated DateFormat.format(attribute.dateCreated)
+    lastUpdated DateFormat.format(attribute.lastUpdated)
+    dataModel tmpl.dataModel_minimal(dataModel: attribute.dataModel)
+}

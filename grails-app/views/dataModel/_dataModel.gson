@@ -1,0 +1,23 @@
+import core.model.DataModel
+import util.DateFormat
+
+inherits template: "/dataModel/dataModel_minimal", model: [dataModel: dataModel]
+
+model {
+    DataModel dataModel
+}
+
+json {
+    pluralTitle dataModel.pluralTitle
+    description dataModel.description
+    dateCreated DateFormat.format(dataModel.dateCreated)
+    lastUpdated DateFormat.format(dataModel.lastUpdated)
+    operations {
+        edit true
+        delete false
+    }
+
+    attributes tmpl.attribute(dataModel.attributes.sort { it.order })
+    displayAttribute tmpl.attribute(dataModel.displayAttribute)
+    parent tmpl.dataModel(dataModel.parent)
+}

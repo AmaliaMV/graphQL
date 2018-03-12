@@ -1,0 +1,14 @@
+package dataModel
+
+import core.model.EmailAttributeType
+
+inherits template: "/dataModel/attributeType", model: [attributeType: emailAttributeType]
+
+model {
+    EmailAttributeType emailAttributeType
+}
+
+json {
+    defaultValue emailAttributeType.defaultValue
+    length emailAttributeType.length
+}

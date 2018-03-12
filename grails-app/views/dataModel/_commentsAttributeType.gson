@@ -1,0 +1,9 @@
+package dataModel
+
+import core.model.CommentsAttributeType
+
+model {
+    CommentsAttributeType commentsAttributeType
+}
+
+json tmpl."/dataModel/attributeType"(attributeType: commentsAttributeType)

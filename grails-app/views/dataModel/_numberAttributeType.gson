@@ -1,0 +1,15 @@
+package dataModel
+
+import core.model.NumberAttributeType
+
+inherits template: "/dataModel/attributeType", model:[attributeType: numberAttributeType]
+
+model {
+    NumberAttributeType numberAttributeType
+}
+
+json {
+    defaultValue numberAttributeType.defaultValue
+    length numberAttributeType.length
+    decimalPlaces numberAttributeType.decimalPlaces
+}

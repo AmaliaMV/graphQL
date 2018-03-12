@@ -1,0 +1,14 @@
+package dataModel
+
+import core.model.TextAttributeType
+
+inherits template: "/dataModel/attributeType", model:[attributeType: textAttributeType]
+
+model {
+    TextAttributeType textAttributeType
+}
+
+json {
+    defaultValue textAttributeType.defaultValue
+    length textAttributeType.length
+}

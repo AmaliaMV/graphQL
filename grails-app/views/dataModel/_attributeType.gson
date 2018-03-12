@@ -1,0 +1,15 @@
+package dataModel
+
+import org.apache.commons.lang.StringUtils
+
+import core.model.AttributeType
+
+model {
+    AttributeType attributeType
+}
+
+json {
+    name attributeType.class.simpleName
+    title StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(attributeType.class.simpleName - 'AttributeType'), ' ')
+    "class" AttributeType.class.simpleName
+}

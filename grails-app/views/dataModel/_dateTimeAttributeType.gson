@@ -1,0 +1,12 @@
+import core.model.DateTimeAttributeType
+
+
+inherits template: "/dataModel/attributeType", model: [attributeType: dateTimeAttributeType]
+
+model {
+    DateTimeAttributeType dateTimeAttributeType
+}
+
+json {
+    defaultValue dateTimeAttributeType.defaultValue
+}

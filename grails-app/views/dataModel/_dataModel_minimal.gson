@@ -1,0 +1,13 @@
+import core.model.DataModel
+
+model {
+    DataModel dataModel
+}
+
+json {
+    "class" DataModel.simpleName
+    "id" dataModel.id?.toString()
+    name dataModel.name
+    title dataModel.title
+    resource dataModel.resourceName
+}
