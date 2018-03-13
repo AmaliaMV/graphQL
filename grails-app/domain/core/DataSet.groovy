@@ -6,7 +6,6 @@ import org.springframework.util.ReflectionUtils
 
 import grails.databinding.BindUsing
 import grails.databinding.DataBindingSource
-import grails.util.Holders
 
 import org.grails.datastore.gorm.neo4j.GraphPersistentEntity
 import org.grails.datastore.gorm.neo4j.Neo4jSession
@@ -28,8 +27,6 @@ class DataSet extends AbstractBaseDomain {
 
     Boolean active = true
     protected String displayValue
-
-    static transients = ['lastSyncDatasource', '__app__']
 
     static constraints = {
         dataModel nullable: true, dataSet: true
@@ -56,18 +53,6 @@ class DataSet extends AbstractBaseDomain {
         this.dataModel = dataModel
     }
 
-    def propertyMissing(String name) {
-        def value = super.propertyMissing(name)
-        if (value == null && this.dataModel && !this.dataModel.hasAttribute(name)) {
-            List incoming = dataSetService.getIncomingRelationship(this, name)
-            if (incoming.size() > 0) {
-                value = incoming
-            }
-        }
-
-        return value
-    }
-
     def propertyMissing(String name, val) {
         if (val instanceof Date) {
             super.propertyMissing(name, val.time)
@@ -85,17 +70,7 @@ class DataSet extends AbstractBaseDomain {
     }
 
     boolean containsProperty(String propertyName) {
-
-        if (propertyName.contains('.')) {
-            int pos = propertyName.lastIndexOf('.')
-            String relatedAttributePath = propertyName.substring(0, pos)
-            String relatedAttributeName = propertyName.substring(pos + 1)
-            DataModel relatedDataModel = dataModel.getRelatedDataModel(relatedAttributePath)
-            return relatedDataModel?.hasAttribute(relatedAttributeName)
-        }
-        else {
-            return getProperty(propertyName) || (this.dataModel?.getAttributeByName(propertyName) != null)
-        }
+        return getProperty(propertyName) || (this.dataModel?.getAttributeByName(propertyName) != null)
     }
 
     Object getPropertyValue(String propertyName) {
@@ -116,7 +91,7 @@ class DataSet extends AbstractBaseDomain {
 
     Set<String> getPropertyNames() {
         Set<String> properties = []
-        properties.addAll((Collection<String>)this.getProperties().keySet())
+        properties.addAll((Collection<String>) this.getProperties().keySet())
 
         this.dataModel?.attributes?.each { Attribute attribute ->
             properties.add(attribute.name)
@@ -132,7 +107,7 @@ class DataSet extends AbstractBaseDomain {
         }
         return map
     }
-    
+
     protected static String buildLabels(DataModel dataModel) {
         StringBuilder labels = new StringBuilder()
 
@@ -145,9 +120,5 @@ class DataSet extends AbstractBaseDomain {
         }
 
         return labels.toString()
-    }
-
-    protected static DataSetService getDataSetService() {
-        return (DataSetService) Holders.applicationContext.getBean("dataSetService")
     }
 }

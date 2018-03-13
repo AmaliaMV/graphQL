@@ -1,7 +1,8 @@
 package core
 
-import org.grails.datastore.gorm.neo4j.GraphPersistentEntity
 import grails.compiler.GrailsCompileStatic
+
+import org.grails.datastore.gorm.neo4j.GraphPersistentEntity
 
 @GrailsCompileStatic
 abstract class ConfigItem extends AbstractBaseDomain {

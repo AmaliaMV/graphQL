@@ -1,15 +1,17 @@
 package core.model
 
 import core.ConfigItem
-import core.DataSet
 import util.Constants
 import util.Labels
 
 class Attribute extends ConfigItem {
 
     String description
+
     String helpText
+
     Integer order = 1
+
     String metadata
 
     AttributeType type
@@ -49,8 +51,6 @@ class Attribute extends ConfigItem {
         dataModel nullable: true
     }
 
-    static transients = ['inherited', 'facet']
-
     static mapping = {
         dataModel lazy: false
     }
@@ -78,9 +78,4 @@ class Attribute extends ConfigItem {
     void setDataModel(DataModel dataModel) {
         this.dataModel = dataModel
     }
-
-    boolean isInherited() {
-        return !getDataModel() || getDataModel().hasChildren()
-    }
-
 }

@@ -26,11 +26,10 @@ class TextAttributeType extends SimpleAttributeType {
     }
 
     TextAttributeType() {
-        this.length = TEXT_ATTRIBUTE_MAX_LENGTH
+        this(TEXT_ATTRIBUTE_MAX_LENGTH)
     }
 
     TextAttributeType(Integer length, String defaultValue = '') {
-        this()
         this.length = length
         this.defaultValue = defaultValue
     }

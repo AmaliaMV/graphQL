@@ -7,7 +7,6 @@ import groovy.transform.EqualsAndHashCode
 import com.google.common.reflect.TypeToken
 
 import grails.compiler.GrailsCompileStatic
-import grails.gorm.validation.Constraint
 
 @EqualsAndHashCode(excludes = 'id')
 @GrailsCompileStatic

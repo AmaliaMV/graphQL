@@ -1,10 +1,6 @@
 package core.model
 
-import org.apache.commons.validator.routines.UrlValidator
-
 import grails.compiler.GrailsCompileStatic
-
-import org.grails.datastore.mapping.validation.ValidationErrors
 
 @GrailsCompileStatic
 class URLAttributeType extends TextAttributeType {
