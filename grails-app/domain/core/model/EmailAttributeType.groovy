@@ -13,7 +13,7 @@ class EmailAttributeType extends TextAttributeType {
         super()
     }
 
-    EmailAttributeType(Integer length, String defaultValue) {
+    EmailAttributeType(Integer length, String defaultValue = '') {
         super(length, defaultValue)
     }
 
