@@ -10,7 +10,6 @@ model {
 json {
     "class" dataSet.class.simpleName
     id dataSet.id?.toString()
-    displayValue dataSet.displayValue
     dataModel tmpl.'/dataModel/dataModel_minimal'(dataModel: dataSet.dataModel)
 
     dateCreated DateFormat.format(dataSet.dateCreated)

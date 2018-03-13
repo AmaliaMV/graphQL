@@ -15,7 +15,7 @@ class BootStrap {
         DataModel.withNewSession {
             DataModel.withNewTransaction {
 
-                if ( DataModel.findByName('employee') == null ) {
+                if (DataModel.findByName('employee') == null) {
                     DataModel employee = new DataModel(name: 'employee', title: 'Employee')
                     employee.save(failOnError: true)
 
