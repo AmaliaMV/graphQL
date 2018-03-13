@@ -26,7 +26,6 @@ class DataSet extends AbstractBaseDomain {
     DataModel dataModel
 
     Boolean active = true
-    protected String displayValue
 
     static constraints = {
         dataModel nullable: true, dataSet: true
@@ -60,13 +59,6 @@ class DataSet extends AbstractBaseDomain {
         else {
             super.propertyMissing(name, val)
         }
-    }
-
-    String getDisplayValue() {
-        if (!this.displayValue) {
-            this.displayValue = dataSetService.getDisplayValue(this)
-        }
-        return this.displayValue
     }
 
     boolean containsProperty(String propertyName) {
@@ -113,10 +105,6 @@ class DataSet extends AbstractBaseDomain {
 
         if (dataModel) {
             labels.append("`${dataModel.title}`")
-            if (dataModel.parent) {
-                labels.append(":")
-                labels.append(buildLabels(dataModel.parent))
-            }
         }
 
         return labels.toString()
