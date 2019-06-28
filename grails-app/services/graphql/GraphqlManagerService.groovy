@@ -69,7 +69,6 @@ class GraphqlManagerService {
             listArguments = buildListArguments()
         }
 
-
         PersistentEntity entity = neo4jMappingContext.getPersistentEntity('core.DataSet')
         GraphQLMapping mapping = GraphQLEntityHelper.getMapping(entity)
         InterceptorInvoker queryInterceptorInvoker = new QueryInterceptorInvoker()
@@ -77,26 +76,8 @@ class GraphqlManagerService {
         GraphQLObjectType.Builder queryType = newObject().name('Query')
         List<GraphQLFieldDefinition.Builder> queryFields = []
 
-        List<GraphQLFieldDefinition> definitionList = []
 
-        for (Attribute attribute : dataModel.attributes) {
-            GraphQLFieldDefinition graphQLFieldDefinition = GraphQLFieldDefinition.newFieldDefinition()
-                .name(attribute.name)
-                .type((GraphQLOutputType) graphQLTypeManager.getType(String))
-                .dataFetcher(new DataSetAttributeDataFetcher(attribute.name))
-                .build()
-
-            definitionList.add(graphQLFieldDefinition)
-        }
-
-        GraphQLObjectType objectType = newObject()
-            .name('employee')
-            .fields(definitionList)
-            .build()
-
-
-
-
+        GraphQLObjectType objectType = buildGraphQLObject(dataModel)
 
 
         ListOperation listOperation = mapping.operations.list
@@ -114,7 +95,7 @@ class GraphqlManagerService {
         }
         else {
             if (listFetcher == null) {
-                listFetcher = new DataSetEntityFetcher(entity, 'employee')
+                listFetcher = new DataSetEntityFetcher(entity, dataModel.name)
             }
             queryAll.type(list(objectType))
         }
@@ -165,4 +146,31 @@ class GraphqlManagerService {
         listArguments
     }
 
+
+    private buildGraphQLObject(DataModel dataModel) {
+        List<GraphQLFieldDefinition> definitionList = []
+
+        // attr estáticos del dataset
+
+        // attr dinámicos
+        for (Attribute attribute : dataModel.attributes) {
+            GraphQLFieldDefinition graphQLFieldDefinition = newFieldDefinition()
+                .name(namingConvention(attribute.name))
+                .type((GraphQLOutputType) graphQLTypeManager.getType(String))
+                .dataFetcher(new DataSetAttributeDataFetcher(attribute.name))
+                .build()
+
+            definitionList.add(graphQLFieldDefinition)
+        }
+
+        return newObject()
+            .name(namingConvention(dataModel.name))
+            .fields(definitionList)
+            .build()
+    }
+
+    // ver el tema d los underscore, debería ser algo tipo vul_def --> vulDef
+    private String namingConvention(String name) {
+        return name
+    }
 }
