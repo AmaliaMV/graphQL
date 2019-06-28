@@ -6,6 +6,7 @@ import grails.compiler.GrailsCompileStatic
 abstract class AbstractBaseDomain implements Serializable {
 
     static mapWith = "neo4j"
+    static graphql = true
 
     Long version = 0L
 

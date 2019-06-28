@@ -10,6 +10,9 @@ import grails.compiler.GrailsCompileStatic
 @GrailsCompileStatic
 abstract class SimpleAttributeType extends AttributeType {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     String defaultValue
 
     static constraints = {

@@ -12,6 +12,9 @@ import org.grails.datastore.mapping.validation.ValidationErrors
 @GrailsCompileStatic
 class NumberAttributeType extends SimpleAttributeType {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     Integer length
     Integer decimalPlaces
 

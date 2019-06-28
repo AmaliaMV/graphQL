@@ -10,6 +10,9 @@ import core.DataSet
 
 class DataModel extends ConfigItem {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     String description
 
     String domainClazz = DataSet.simpleName

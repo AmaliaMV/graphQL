@@ -6,6 +6,9 @@ import util.Labels
 
 class Attribute extends ConfigItem {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     String description
 
     String helpText

@@ -8,11 +8,14 @@ import com.google.common.reflect.TypeToken
 
 import grails.compiler.GrailsCompileStatic
 
+import graphql.schema.GraphQLOutputType
+
 @EqualsAndHashCode(excludes = 'id')
 @GrailsCompileStatic
 class AttributeType {
 
     static mapWith = "neo4j"
+    static graphql = true
 
     static belongsTo = [attribute: Attribute]
 
@@ -27,5 +30,4 @@ class AttributeType {
     TypeToken getClazzType() {
         throw new OperationNotSupportedException()
     }
-
 }

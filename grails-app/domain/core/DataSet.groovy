@@ -16,6 +16,7 @@ import core.model.DataModel
 class DataSet extends AbstractBaseDomain {
 
     static mapWith = "neo4j"
+    static graphql = true
 
     @BindUsing({ DataSet object, DataBindingSource source ->
         if (source['dataModel']) {

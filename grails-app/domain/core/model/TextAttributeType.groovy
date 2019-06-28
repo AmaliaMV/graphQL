@@ -12,6 +12,9 @@ import org.grails.datastore.mapping.validation.ValidationErrors
 @GrailsCompileStatic
 class TextAttributeType extends SimpleAttributeType {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     static final Integer TEXT_ATTRIBUTE_MAX_LENGTH = 40
 
     Integer length

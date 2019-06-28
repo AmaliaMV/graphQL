@@ -7,6 +7,9 @@ import org.grails.datastore.gorm.neo4j.GraphPersistentEntity
 @GrailsCompileStatic
 abstract class ConfigItem extends AbstractBaseDomain {
 
+    static mapWith = "neo4j"
+    static graphql = true
+
     public static final String DISPLAY_VALUE_PROPERTY = 'title'
     public static final String CONFIG_ITEM_PREFIX = 'GQL__'
 
