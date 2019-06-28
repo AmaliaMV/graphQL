@@ -23,13 +23,12 @@ import org.grails.gorm.graphql.types.GraphQLPropertyType
 import org.grails.gorm.graphql.types.GraphQLTypeManager
 
 import core.DataSet
+import core.DataSetAttributeDataFetcher
 import core.DataSetEntityFetcher
 import core.model.Attribute
 import core.model.DataModel
 import graphql.schema.DataFetcher
-import graphql.schema.DataFetcherFactory
-import graphql.schema.DataFetcherFactoryEnvironment
-import graphql.schema.DataFetchingEnvironment
+
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLInputType
 import graphql.schema.GraphQLObjectType
@@ -84,11 +83,7 @@ class GraphqlManagerService {
             GraphQLFieldDefinition graphQLFieldDefinition = GraphQLFieldDefinition.newFieldDefinition()
                 .name(attribute.name)
                 .type((GraphQLOutputType) graphQLTypeManager.getType(String))
-                .dataFetcher(new ClosureDataFetcher({ DataSet dataset ->
-
-                println "lo está usando"
-                return dataset.firstName
-            }))
+                .dataFetcher(new DataSetAttributeDataFetcher(attribute.name))
                 .build()
 
             definitionList.add(graphQLFieldDefinition)
