@@ -64,7 +64,10 @@ dependencies {
 
 
 //tag::graphqldependency[]
-    compile "org.grails.plugins:gorm-graphql:1.0.3.BUILD-SNAPSHOT"
+    //compile "org.grails.plugins:gorm-graphql:1.0.3.BUILD-SNAPSHOT"
+
+    //compile "com.graphql-java:graphql-java:$graphqlJavaVersion"
+    compile "com.graphql-java:graphql-java:11.0"
 //end::graphqldependency[]
 
     // Google guava common util
@@ -76,8 +79,22 @@ dependencies {
     runtime "com.h2database:h2"
     runtime "org.apache.tomcat:tomcat-jdbc"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.8"
+
+
+
+
     testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.grails:grails-web-testing-support"
+    testCompile "org.grails:grails-datastore-gorm-hibernate5:$gormVersion"
+    testCompile 'com.github.fakemongo:fongo:2.1.0'
+    testRuntime "com.h2database:h2:1.4.192"
+    testRuntime "org.apache.tomcat:tomcat-jdbc:8.5.0"
+    testRuntime "org.apache.tomcat.embed:tomcat-embed-logging-log4j:8.5.0"
+
+// test
+    //compile "io.micronaut:micronaut-http-client:$micronautVersion"
+    compile "io.micronaut:micronaut-http-client:1.0.3"
+
 }
 
 bootRun {

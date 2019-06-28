@@ -3,6 +3,9 @@ package graphql
 class UrlMappings {
 
     static mappings = {
+        "/graphql/$action?"(controller: 'graphql')
+
+
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here

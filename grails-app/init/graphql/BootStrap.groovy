@@ -32,9 +32,9 @@ class BootStrap {
                                                     title: 'Email',
                                                     type: new EmailAttributeType(40)).save(failOnError: true)
 
-                    Attribute age = new Attribute(name: 'age',
-                                                  title: 'Age',
-                                                  type: new NumberAttributeType(length: 3, decimalPlaces: 0)).save(failOnError: true)
+//                    Attribute age = new Attribute(name: 'age',
+//                                                  title: 'Age',
+//                                                  type: new NumberAttributeType(length: 3, decimalPlaces: 0)).save(failOnError: true)
 
                     Attribute homePage = new Attribute(name: 'homePage',
                                                        title: 'Personal Profile',
@@ -43,17 +43,72 @@ class BootStrap {
                     employee.addToAttributes(firstName)
                     employee.addToAttributes(lastName)
                     employee.addToAttributes(email)
-                    employee.addToAttributes(age)
+//                    employee.addToAttributes(age)
                     employee.addToAttributes(homePage)
 
                     employee.save(failOnError: true)
 
-                    DataSet mvinas = new DataSet(employee)
-                    mvinas.firstName = "Mauro"
-                    mvinas.lastName = "Vinas"
-                    mvinas.email = "mauro@example.com"
-                    mvinas.age = 32
-                    mvinas.save(failOnError: true)
+                    DataSet empleado1 = new DataSet(employee)
+                    empleado1.firstName = "Empleado 0"
+                    empleado1.lastName = "Apellido 0"
+                    empleado1.email = "mauro@example.com"
+//                    mvinas.age = 32
+                    empleado1.save(failOnError: true)
+
+                    empleado1 = new DataSet(employee)
+                    empleado1.firstName = "Empleado 1"
+                    empleado1.lastName = "Apellido 1"
+                    empleado1.email = "mauro@example.com"
+//                    mvinas.age = 32
+                    empleado1.save(failOnError: true)
+
+                    empleado1 = new DataSet(employee)
+                    empleado1.firstName = "Empleado 2"
+                    empleado1.lastName = "Apellido 2"
+                    empleado1.email = "mauro@example.com"
+//                    mvinas.age = 32
+                    empleado1.save(failOnError: true)
+
+                    empleado1 = new DataSet(employee)
+                    empleado1.firstName = "Empleado 3"
+                    empleado1.lastName = "Apellido 3"
+                    empleado1.email = "mauro@example.com"
+//                    mvinas.age = 32
+                    empleado1.save(failOnError: true)
+                }
+
+                if (DataModel.findByName('host') == null) {
+                    DataModel host = new DataModel(name: 'host', title: 'Host')
+                    host.save(failOnError: true)
+
+                    // add attributes
+                    Attribute name = new Attribute(name: 'name',
+                                                        title: 'Name',
+                                                        type: new TextAttributeType(30)).save(failOnError: true)
+
+                    Attribute ip = new Attribute(name: 'ip',
+                                                       title: 'IP',
+                                                       type: new TextAttributeType(30)).save(failOnError: true)
+
+                    host.addToAttributes(name)
+                    host.addToAttributes(ip)
+
+                    host.save(failOnError: true)
+
+                    DataSet hostData = new DataSet(host)
+                    hostData.name = "Host-0"
+                    hostData.ip = "192.168.252.13"
+                    hostData.save(failOnError: true)
+
+                    hostData = new DataSet(host)
+                    hostData.name = "Host-1"
+                    hostData.ip = "192.168.253.13"
+                    hostData.save(failOnError: true)
+
+                    hostData = new DataSet(host)
+                    hostData.name = "Host-2"
+                    hostData.ip = "192.168.252.16"
+                    hostData.save(failOnError: true)
                 }
 
             }

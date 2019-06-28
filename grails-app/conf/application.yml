@@ -32,6 +32,9 @@ endpoints:
 
 ---
 grails:
+    gorm.graphql:
+      enabled: true
+      browser: true
     mime:
         disable:
             accept:
@@ -64,6 +67,7 @@ grails:
             xml:
               - text/xml
               - application/xml
+            graphql: application/graphql
     urlmapping:
         cache:
             maxsize: 1000
