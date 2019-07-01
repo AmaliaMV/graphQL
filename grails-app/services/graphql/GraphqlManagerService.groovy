@@ -3,11 +3,9 @@ package graphql
 import java.lang.reflect.Method
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.config.Property
-import org.grails.datastore.mapping.model.MappingContext
 import org.grails.datastore.mapping.model.PersistentEntity
 import org.grails.datastore.mapping.model.PersistentProperty
 import org.grails.gorm.graphql.GraphQLEntityHelper
@@ -16,12 +14,9 @@ import org.grails.gorm.graphql.entity.dsl.GraphQLMapping
 import org.grails.gorm.graphql.entity.dsl.GraphQLPropertyMapping
 import org.grails.gorm.graphql.entity.operations.ListOperation
 import org.grails.gorm.graphql.entity.property.GraphQLDomainProperty
-import org.grails.gorm.graphql.entity.property.impl.CustomGraphQLProperty
-import org.grails.gorm.graphql.entity.property.impl.PersistentGraphQLProperty
 import org.grails.gorm.graphql.entity.property.manager.GraphQLDomainPropertyManager
 import org.grails.gorm.graphql.fetcher.GraphQLDataFetcherType
 import org.grails.gorm.graphql.fetcher.PaginatingGormDataFetcher
-import org.grails.gorm.graphql.fetcher.impl.ClosureDataFetcher
 import org.grails.gorm.graphql.fetcher.impl.EntityDataFetcher
 import org.grails.gorm.graphql.fetcher.impl.PaginatedEntityDataFetcher
 import org.grails.gorm.graphql.fetcher.interceptor.InterceptingDataFetcher
@@ -34,9 +29,8 @@ import org.grails.gorm.graphql.types.GraphQLPropertyType
 import org.grails.gorm.graphql.types.GraphQLTypeManager
 import org.grails.gorm.graphql.types.output.ShowObjectTypeBuilder
 
-import core.DataSet
 import core.DataSetAttributeDataFetcher
-import core.DataSetEntityFetcher
+import graphql.fetcher.DataSetEntityFetcher
 import core.model.Attribute
 import core.model.DataModel
 import graphql.schema.DataFetcher
@@ -58,7 +52,7 @@ import static org.grails.gorm.graphql.fetcher.GraphQLDataFetcherType.LIST
 class GraphqlManagerService {
 
 
-    private GraphQL currentGraphQL
+    GraphQL graphQL
     Neo4jMappingContext neo4jMappingContext
     GraphQLDataFetcherManager graphQLDataFetcherManager
     GraphQLPaginationResponseHandler graphQLPaginationResponseHandler
@@ -84,12 +78,12 @@ class GraphqlManagerService {
 
 
     GraphQL getGraphQL() {
-        if (!currentGraphQL) {
-            currentGraphQL = Holders.applicationContext.getBean('graphQL', GraphQL)
-            showObjectTypeBuilder = new ShowObjectTypeBuilder(graphQLDomainPropertyManager, graphQLTypeManager, graphQLErrorsResponseHandler)
-        }
+//        if (!currentGraphQL) {
+//            currentGraphQL = Holders.applicationContext.getBean('graphQL', GraphQL)
+//            showObjectTypeBuilder = new ShowObjectTypeBuilder(graphQLDomainPropertyManager, graphQLTypeManager, graphQLErrorsResponseHandler)
+//        }
 
-        return currentGraphQL
+        return graphQL
     }
 
     void updateSchema(DataModel dataModel) {
@@ -97,7 +91,7 @@ class GraphqlManagerService {
             listArguments = buildListArguments()
         }
 
-
+       // showObjectTypeBuilder = new ShowObjectTypeBuilder(graphQLDomainPropertyManager, graphQLTypeManager, graphQLErrorsResponseHandler)
 
         Params params = new Params()
 
@@ -108,7 +102,7 @@ class GraphqlManagerService {
         GraphQLMapping mapping = GraphQLEntityHelper.getMapping(entity)
 
         GraphQLObjectType objectType = buildGraphQLObject(dataModel, entity)
-        
+
         GraphQLObjectType.Builder queryType = newObject().name('Query')
         List<GraphQLFieldDefinition.Builder> queryFields = []
 
@@ -153,14 +147,25 @@ class GraphqlManagerService {
         queryType.fields(queryFields*.build())
 
 
-
         GraphQLSchema graphQLSchema = GraphQLSchema.newSchema()
             .query(queryType)
             .build()
 
-        currentGraphQL = GraphQL
+        this.graphQL = GraphQL
             .newGraphQL(graphQLSchema)
             .build()
+
+        //graphQLSchema.query(graphQL.graphQLSchema.getQueryType())
+
+//        graphQL.graphQLSchema.transform({ builder -> builder.query(queryType) })
+
+//        graphQL = GraphQL
+//            .newGraphQL(graphQL.graphQLSchema.transform({ builder -> builder.query(queryType) }))
+//            .build()
+
+
+
+        graphQL.graphQLSchema.queryType.fieldDefinitionsByName
     }
 
     // refactor

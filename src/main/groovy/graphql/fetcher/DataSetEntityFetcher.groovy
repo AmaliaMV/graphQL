@@ -1,4 +1,4 @@
-package core
+package graphql.fetcher
 
 import grails.gorm.DetachedCriteria
 
