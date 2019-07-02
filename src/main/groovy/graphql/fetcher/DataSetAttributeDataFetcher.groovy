@@ -1,5 +1,6 @@
-package core
+package graphql.fetcher
 
+import core.DataSet
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
 

@@ -29,7 +29,7 @@ import org.grails.gorm.graphql.types.GraphQLPropertyType
 import org.grails.gorm.graphql.types.GraphQLTypeManager
 import org.grails.gorm.graphql.types.output.ShowObjectTypeBuilder
 
-import core.DataSetAttributeDataFetcher
+import graphql.fetcher.DataSetAttributeDataFetcher
 import graphql.fetcher.DataSetEntityFetcher
 import core.model.Attribute
 import core.model.DataModel

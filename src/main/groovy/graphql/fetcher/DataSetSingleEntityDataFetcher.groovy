@@ -8,7 +8,7 @@ import org.grails.gorm.graphql.fetcher.impl.SingleEntityDataFetcher
 import core.model.DataModel
 import graphql.schema.DataFetchingEnvironment
 
-class DataSetSingleEntityDataFetcher extends SingleEntityDataFetcher {
+class DataSetSingleEntityDataFetcher<T> extends SingleEntityDataFetcher<T> {
 
     private String dataModelName
 

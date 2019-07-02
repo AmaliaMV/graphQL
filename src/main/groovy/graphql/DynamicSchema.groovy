@@ -1,4 +1,4 @@
-package core
+package graphql
 
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.gorm.graphql.GraphQLEntityHelper
@@ -6,8 +6,11 @@ import org.grails.gorm.graphql.Schema
 import org.grails.gorm.graphql.entity.property.GraphQLDomainProperty
 import org.grails.gorm.graphql.fetcher.ReadingGormDataFetcher
 
+import core.DataSet
 import core.model.Attribute
 import core.model.DataModel
+import graphql.fetcher.DataSetAttributeDataFetcher
+import graphql.fetcher.DataSetCountEntityDataFetcher
 import graphql.fetcher.DataSetEntityFetcher
 import graphql.fetcher.DataSetSingleEntityDataFetcher
 import graphql.schema.*
@@ -169,7 +172,7 @@ class DynamicSchema extends Schema {
 //                mutationFields.add(delete)
 //            }
 //
-//            populateIdentityArguments(entity, requiresIdentityArguments.toArray(new GraphQLFieldDefinition.Builder[0]))
+            populateIdentityArguments(entity, params.requiresIdentityArguments.toArray(new GraphQLFieldDefinition.Builder[0]))
 
             for (Closure c : postIdentityExecutables) {
                 c.call()
@@ -293,6 +296,8 @@ class DynamicSchema extends Schema {
         addGetQuery(params)
         addListQuery(params)
         addCountQuery(params)
+
+        populateIdentityArguments(params.entity, params.requiresIdentityArguments.toArray(new GraphQLFieldDefinition.Builder[0]))
 
         queryType.fields(params.queryFields*.build())
     }
@@ -447,7 +452,7 @@ class DynamicSchema extends Schema {
 
         @Override
         ReadingGormDataFetcher getCountEntityDataFetcher() {
-            return new CountEntityDataFetcher(entity)
+            return new DataSetCountEntityDataFetcher(entity, dataModel.name)
         }
 
         // ver el tema d los underscore, debería ser algo tipo vul_def --> vulDef
